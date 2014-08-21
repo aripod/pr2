@@ -1,8 +1,8 @@
 lib_LTLIBRARIES = libpr2_l_arm_codels.la
 
 libpr2_l_arm_codels_la_SOURCES=	pr2_l_arm_c_types.h
-libpr2_l_arm_codels_la_SOURCES+=	pr2_l_arm_codels.c
-libpr2_l_arm_codels_la_SOURCES+=	pr2_l_arm_move_codels.c
+libpr2_l_arm_codels_la_SOURCES+=	pr2_l_arm_codels.cc
+libpr2_l_arm_codels_la_SOURCES+=	pr2_l_arm_move_codels.cc
 
 libpr2_l_arm_codels_la_CPPFLAGS=	$(requires_CFLAGS)
 libpr2_l_arm_codels_la_LDFLAGS=	$(requires_LIBS)

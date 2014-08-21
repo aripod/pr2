@@ -1,12 +1,8 @@
-#include "pr2_l_arm.idl"
-
 component pr2_l_arm{
 	version		"1.0";
 	lang		"c";
 	require		"genom3 >= 2.99.24";
     
-    port out subscriber::l_arm Port;
-
     task move{
         period      50ms;
         priority    200;
@@ -15,14 +11,17 @@ component pr2_l_arm{
         codel <start>   InitModule() yield ether;
     };
 
-    activity Publish(in double l_shoulder_pan_joint, in double l_shoulder_lift_joint,
+    activity Move_l_arm(in double l_shoulder_pan_joint, in double l_shoulder_lift_joint,
                         in double l_upper_arm_roll_joint, in double l_elbow_flex_joint,
                         in double l_forearm_roll_joint, in double l_wrist_flex_joint,
-                        in double l_wrist_roll_joint, in double time_to_finish){
-        codel <start>   mraMove(in l_shoulder_pan_joint, in l_shoulder_lift_joint, 
+                        in double l_wrist_roll_joint){
+        codel <start>   mlaMove(in l_shoulder_pan_joint, in l_shoulder_lift_joint, 
                                 in l_upper_arm_roll_joint, in l_elbow_flex_joint,
                                 in l_forearm_roll_joint, in l_wrist_flex_joint,
-                                in l_wrist_roll_joint, in time_to_finish, port out Port) yield ether;
+                                in l_wrist_roll_joint) yield ether;
         task move;
     };
 };
+
+//pr2_l_arm-ros /pr2_l_arm/Goal:=/l_arm_controller/joint_trajectory_action/goal
+//::pr2_l_arm::connect_port State /l_arm_controller/state
