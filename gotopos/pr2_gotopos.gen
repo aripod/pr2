@@ -1,0 +1,24 @@
+#include "pr2_gotopos.idl"
+
+component pr2_gotopos{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.24";
+
+    port out subscriber::position Port;
+    port in subscriber::result result_pr2_gotopos;
+
+    task PublishPort{
+        period      20ms;
+        priority    100;
+        stack       4000;
+
+        codel <start>   InitPublishPort() yield ether;
+    };
+
+    activity Publish(in double x, in double y, in double w){
+        codel <start>   pPublish(in x, in y, in w, port out Port) yield display;
+        codel <display> pDisplay(port in result_pr2_gotopos) yield display, ether;
+        task PublishPort;
+    };
+};

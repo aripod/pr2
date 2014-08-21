@@ -1,0 +1,19 @@
+#ifndef HEAD_STRUCT_H
+#define HEAD_STRUCT_H
+
+module subscriber
+{
+    struct head
+    {
+        double pan;
+        double tilt;
+        double time_to_finish;
+    };
+
+    struct result
+    {
+        string data;
+    };
+};
+
+#endif

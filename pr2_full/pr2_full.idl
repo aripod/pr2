@@ -1,0 +1,51 @@
+#ifndef PR2_STRUCT_H
+#define PR2_STRUCT_H
+
+module subscriber
+{
+    struct head
+    {
+        double pan;
+        double tilt;
+        double time_to_finish;
+    };
+
+    struct position
+    {
+        double x;
+        double y;
+        double w;
+    };
+
+    struct l_arm
+    {
+        double l_shoulder_pan_joint;
+        double l_shoulder_lift_joint;
+        double l_upper_arm_roll_joint;
+        double l_elbow_flex_joint;
+        double l_forearm_roll_joint;
+        double l_wrist_flex_joint;
+        double l_wrist_roll_joint;
+        double time_to_finish;
+    };
+
+    struct r_arm
+    {
+        double r_shoulder_pan_joint;
+        double r_shoulder_lift_joint;
+        double r_upper_arm_roll_joint;
+        double r_elbow_flex_joint;
+        double r_forearm_roll_joint;
+        double r_wrist_flex_joint;
+        double r_wrist_roll_joint;
+        double time_to_finish;
+    };
+
+    struct torso
+    {
+        double torso;
+        double time_to_finish;
+    };
+};
+
+#endif

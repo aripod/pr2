@@ -1,0 +1,61 @@
+#include "pr2_full.idl"
+
+component pr2_full{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.24";
+
+    port out subscriber::head Port_head;
+    port out subscriber::position Port_gotoposition;
+    port out subscriber::l_arm Port_l_arm;
+    port out subscriber::r_arm Port_r_arm;
+    port out subscriber::torso Port_torso;
+
+    exception   INVALID_TORSO;
+    
+    task PublishPort{
+        period      50ms;
+        priority    200;
+        stack       4000;
+
+        codel <start>   InitModule() yield ether;
+    };
+
+    activity move_head(in double pan, in double tilt, in double time_to_finish){
+        codel <start>   cMove_Head(in pan, in tilt, in time_to_finish, port out Port_head) yield ether;
+        task PublishPort;
+    };
+
+    activity go_to_position(in double x, in double y, in double w){
+        codel <start>   cGo_To_Position(in x, in y, in w, port out Port_gotoposition) yield ether;
+        task PublishPort;
+    };    
+    activity move_l_arm(in double l_shoulder_pan_joint, in double l_shoulder_lift_joint,
+                        in double l_upper_arm_roll_joint, in double l_elbow_flex_joint,
+                        in double l_forearm_roll_joint, in double l_wrist_flex_joint,
+                        in double l_wrist_roll_joint, in double time_to_finish){
+        codel <start>   c_Move_Left_Arm(in l_shoulder_pan_joint, in l_shoulder_lift_joint, 
+                                in l_upper_arm_roll_joint, in l_elbow_flex_joint,
+                                in l_forearm_roll_joint, in l_wrist_flex_joint,
+                                in l_wrist_roll_joint, in time_to_finish, port out Port_l_arm) yield ether;
+        task PublishPort;
+    };
+    activity move_r_arm(in double r_shoulder_pan_joint, in double r_shoulder_lift_joint,
+                        in double r_upper_arm_roll_joint, in double r_elbow_flex_joint,
+                        in double r_forearm_roll_joint, in double r_wrist_flex_joint,
+                        in double r_wrist_roll_joint, in double time_to_finish){
+        codel <start>   c_Move_Right_Arm(in r_shoulder_pan_joint, in r_shoulder_lift_joint, 
+                                in r_upper_arm_roll_joint, in r_elbow_flex_joint,
+                                in r_forearm_roll_joint, in r_wrist_flex_joint,
+                                in r_wrist_roll_joint, in time_to_finish, port out Port_r_arm) yield ether;
+        task PublishPort;
+    };
+
+    activity move_torso(in double torso, in double time_to_finish){
+        codel <start>   c_Move_Torso(in torso, in time_to_finish, port out Port_torso) yield ether;
+
+        validate    controlTorso(in torso);
+        task PublishPort;
+        throw   INVALID_TORSO;
+    };
+};

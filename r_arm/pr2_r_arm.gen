@@ -1,0 +1,28 @@
+#include "pr2_r_arm.idl"
+
+component pr2_r_arm{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.24";
+    
+    port out subscriber::r_arm Port;
+
+    task move{
+        period      50ms;
+        priority    200;
+        stack       4000;
+
+        codel <start>   InitModule() yield ether;
+    };
+
+    activity Publish(in double r_shoulder_pan_joint, in double r_shoulder_lift_joint,
+                        in double r_upper_arm_roll_joint, in double r_elbow_flex_joint,
+                        in double r_forearm_roll_joint, in double r_wrist_flex_joint,
+                        in double r_wrist_roll_joint, in double time_to_finish){
+        codel <start>   mraMove(in r_shoulder_pan_joint, in r_shoulder_lift_joint, 
+                                in r_upper_arm_roll_joint, in r_elbow_flex_joint,
+                                in r_forearm_roll_joint, in r_wrist_flex_joint,
+                                in r_wrist_roll_joint, in time_to_finish, port out Port) yield ether;
+        task move;
+    };
+};

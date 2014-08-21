@@ -1,0 +1,19 @@
+#ifndef GOTOPOS_STRUCT_H
+#define GOTOPOS_STRUCT_H
+
+module subscriber
+{
+    struct position
+    {
+        double x;
+        double y;
+        double w;
+    };
+
+    struct result
+    {
+        string data;
+    };
+};
+
+#endif

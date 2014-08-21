@@ -1,0 +1,18 @@
+#ifndef R_ARM_STRUCT_H
+#define R_ARM_STRUCT_H
+
+module subscriber
+{
+    struct r_arm
+    {
+        double r_shoulder_pan_joint;
+        double r_shoulder_lift_joint;
+        double r_upper_arm_roll_joint;
+        double r_elbow_flex_joint;
+        double r_forearm_roll_joint;
+        double r_wrist_flex_joint;
+        double r_wrist_roll_joint;
+        double time_to_finish;
+    };
+};
+#endif

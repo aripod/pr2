@@ -1,0 +1,13 @@
+#ifndef TORSO_STRUCT_H
+#define TORSO_STRUCT_H
+
+module subscriber
+{
+    struct torso
+    {
+        double torso;
+        double time_to_finish;
+    };
+};
+
+#endif

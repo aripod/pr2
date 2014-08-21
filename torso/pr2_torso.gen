@@ -1,0 +1,27 @@
+#include "pr2_torso.idl"
+
+component pr2_torso{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.24";
+    
+    exception   INVALID_TORSO;
+
+    port out subscriber::torso Port;
+
+    task PublishPort{
+        period      50ms;
+        priority    200;
+        stack       4000;
+
+        codel <start>   InitModule() yield ether;
+    };
+
+    activity Publish(in double torso, in double time_to_finish){
+        codel <start>   mtMove(in torso, in time_to_finish, port out Port) yield ether;
+
+        validate    controlTorso(in torso);
+        task PublishPort;
+        throw   INVALID_TORSO;
+    };
+};

@@ -1,0 +1,24 @@
+#include "pr2_head.idl"
+
+component pr2_head{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.24";
+
+    port out subscriber::head Port;
+    port in subscriber::result result_pr2_head;
+    
+    task PublishPort{
+        period      50ms;
+        priority    200;
+        stack       4000;
+
+        codel <start>   InitModule() yield ether;
+    };
+
+    activity Publish(in double pan, in double tilt, in double time_to_finish){
+        codel <start>   pPublish(in pan, in tilt, in time_to_finish, port out Port) yield display;
+        codel <display> pDisplay(port in result_pr2_head) yield display, ether;
+        task PublishPort;
+    };
+};
