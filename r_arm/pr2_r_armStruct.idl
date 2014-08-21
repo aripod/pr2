@@ -1,0 +1,130 @@
+#ifndef TELEPORT_STRUCT_H
+#define TELEPORT_STRUCT_H
+
+#define NUMBER_OF_POINTS    2
+#define NUMBER_OF_JOINTS    7
+
+module subscriber
+{
+    struct msgs_time
+    {
+	    unsigned long _secs;	/*int32_t*/
+        unsigned long _nsecs;
+    };
+
+    struct std_msgs__Header
+    {
+	    unsigned long seq;	/*uint32_t*/
+	    msgs_time stamp;
+	    string frame_id;
+    };
+
+    struct trajectory_msgs__JointTrajectoryPoint
+    {
+        double positions[NUMBER_OF_POINTS];
+        double velocities[NUMBER_OF_POINTS];
+        double accelerations[NUMBER_OF_POINTS];
+        msgs_time time_from_start;
+    };
+
+	struct control_msgs__JointTrajectoryControllerState
+	{
+        std_msgs__Header header;
+        string<NUMBER_OF_JOINTS> joint_names;
+        trajectory_msgs__JointTrajectoryPoint desired;
+        trajectory_msgs__JointTrajectoryPoint actual;
+        trajectory_msgs__JointTrajectoryPoint error;
+	};
+
+    struct actionlib_msgs__GoalID
+    {
+        msgs_time stamp;
+        string id;
+    };
+
+    struct trajectory_msgs_JointTrajectoryPoint
+    {
+        double positions[NUMBER_OF_JOINTS];
+        double velocities[NUMBER_OF_JOINTS];
+        double accelerations[NUMBER_OF_JOINTS];
+        msgs_time time_from_start;
+    };
+
+    struct trajectory_msgs__JointTrajectory
+    {
+        std_msgs__Header header;
+        string<22> joint_names[NUMBER_OF_JOINTS];
+        trajectory_msgs_JointTrajectoryPoint points[NUMBER_OF_POINTS];
+    };
+
+    struct control_msgs__JointTrajectoryGoal
+    {
+        trajectory_msgs__JointTrajectory trajectory;
+    };
+
+    struct control_msgs__JointTrajectoryActionGoal
+    {
+        std_msgs__Header header;
+        actionlib_msgs__GoalID goal_id;
+        control_msgs__JointTrajectoryGoal goal;
+    };
+
+
+    #pragma masquerade ros control_msgs__JointTrajectoryControllerState control_msgs/JointTrajectoryControllerState
+    #pragma masquerade ros control_msgs__JointTrajectoryActionGoal control_msgs/JointTrajectoryActionGoal
+};
+
+#endif
+
+/*
+:~$ rostopic type /r_arm_controller/state 
+pr2_controllers_msgs/JointTrajectoryControllerState
+:~$ rosmsg show pr2_controllers_msgs/JointTrajectoryControllerState 
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+string[] joint_names
+trajectory_msgs/JointTrajectoryPoint desired
+  float64[] positions
+  float64[] velocities
+  float64[] accelerations
+  duration time_from_start
+trajectory_msgs/JointTrajectoryPoint actual
+  float64[] positions
+  float64[] velocities
+  float64[] accelerations
+  duration time_from_start
+trajectory_msgs/JointTrajectoryPoint error
+  float64[] positions
+  float64[] velocities
+  float64[] accelerations
+  duration time_from_start
+*/
+
+
+/*
+:~$ rostopic type /r_arm_controller/joint_trajectory_action/goal 
+control_msgs/JointTrajectoryActionGoal
+:~$ rosmsg show control_msgs/JointTrajectoryActionGoal 
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+actionlib_msgs/GoalID goal_id
+  time stamp
+  string id
+control_msgs/JointTrajectoryGoal goal
+  trajectory_msgs/JointTrajectory trajectory
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    string[] joint_names
+    trajectory_msgs/JointTrajectoryPoint[] points
+      float64[] positions
+      float64[] velocities
+      float64[] accelerations
+      duration time_from_start
+
+*/

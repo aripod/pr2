@@ -6,7 +6,6 @@ component pr2_gotopos{
 	require		"genom3 >= 2.99.24";
 
     port out subscriber::position Port;
-    port in subscriber::result result_pr2_gotopos;
 
     task PublishPort{
         period      20ms;
@@ -17,8 +16,7 @@ component pr2_gotopos{
     };
 
     activity Publish(in double x, in double y, in double w){
-        codel <start>   pPublish(in x, in y, in w, port out Port) yield display;
-        codel <display> pDisplay(port in result_pr2_gotopos) yield display, ether;
+        codel <start>   pPublish(in x, in y, in w, port out Port) yield ether;
         task PublishPort;
     };
 };

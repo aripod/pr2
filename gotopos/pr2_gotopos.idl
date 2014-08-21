@@ -10,10 +10,6 @@ module subscriber
         double w;
     };
 
-    struct result
-    {
-        string data;
-    };
 };
 
 #endif

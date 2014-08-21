@@ -1,0 +1,35 @@
+#include "pr2_move_base.idl"
+
+component pr2_move_base{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.23";
+
+	port in subscriber::subscriber_data Odometry;
+	port out subscriber::geometry_msgs__Twist Teleport;
+
+	task display{
+		period		50ms;
+		priority	100;
+		stack		4000;
+
+		/* On start: Initialize variables by default */
+		codel <start> 	InitModule() yield ether;
+	};
+
+	activity DispData(){
+		codel <start>		dpStart(port in Odometry) yield start;
+		task display;
+	};
+
+	activity Position(in double x, in double y, in double z){
+		codel <start>		pStart(in x, in y, in z, port out Teleport) yield ether;
+		task display;
+	};
+
+	function Stop()
+	{
+		doc 		"Stops display activity";
+		interrupts	DispData;
+	};
+};

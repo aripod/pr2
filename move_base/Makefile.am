@@ -1,12 +1,12 @@
 ACLOCAL_AMFLAGS=	-I autoconf
 
 # IDL source files
-idldir=		$(datadir)/idl/pr2_r_arm
-nobase_dist_idl_DATA= pr2_r_arm.gen pr2_r_arm.idl
+idldir=		$(datadir)/idl/pr2_move_base
+nobase_dist_idl_DATA= pr2_move_base.gen pr2_move_base.idl
 
 pkgconfigdir=	$(libdir)/pkgconfig
 pkgconfig_DATA=
-pkgconfig_DATA+= pr2_r_arm-genom3.pc
+pkgconfig_DATA+= pr2_move_base-genom3.pc
 
 # we don't want generated templates in the distribution
 #
@@ -25,4 +25,4 @@ distclean-local:
 merge: merge-interactive
 merge-%:
 	cd ${top_srcdir} && ${genom3}  \
-		skeleton -m $* pr2_r_arm.gen
+		skeleton -m $* pr2_move_base.gen

@@ -1,0 +1,90 @@
+#ifndef TELEPORT_STRUCT_H
+#define TELEPORT_STRUCT_H
+
+module subscriber
+{
+    struct msgs_time
+    {
+	    unsigned long _secs;	/*int32_t*/
+        	unsigned long _nsecs;
+    };
+
+    struct std_msgs__Header
+    {
+	    unsigned long seq;	/*uint32_t*/
+	    msgs_time stamp;
+	    string frame_id;
+    };
+
+    struct geometry_msgs__Point
+    {
+	    double x;	/*float64*/
+	    double y;
+	    double z;
+    };
+
+    struct geometry_msgs__Quaternion
+    {
+	    double x;
+	    double y;
+	    double z;
+	    double w;
+    };
+
+    struct geometry_msgs__Pose
+    {
+	    geometry_msgs__Point position;
+	    geometry_msgs__Quaternion orientation;
+    };
+
+    struct geometry_msgs__PoseWithCovariance
+    {
+	    geometry_msgs__Pose pose;
+	    double covariance[36];
+    };
+
+    struct geometry_msgs__Vector3
+    {
+	    double x;
+	    double y;
+	    double z;
+    };
+
+    struct struct_msgs__Twist
+    {
+	    geometry_msgs__Vector3 linear;
+	    geometry_msgs__Vector3 angular;	
+    };
+
+    struct geometry_msgs__TwistWithCovariance
+    {
+	    struct_msgs__Twist twist;
+	    double covariance[36];
+    };
+
+    struct geometry_msgs__Twist
+    {
+	    geometry_msgs__Vector3 linear;
+	    geometry_msgs__Vector3 angular;	 
+    };
+
+	struct subscriber_data
+	{
+		std_msgs__Header header;
+		string child_frame_id;	
+		geometry_msgs__PoseWithCovariance pose;	
+		geometry_msgs__TwistWithCovariance twist;		
+	};
+
+	#pragma masquerade ros geometry_msgs__Point geometry_msgs/Point
+	#pragma masquerade ros geometry_msgs__Quaternion geometry_msgs/Quaternion
+	#pragma masquerade ros geometry_msgs__Pose geometry_msgs/Pose
+	#pragma masquerade ros geometry_msgs__PoseWithCovariance geometry_msgs/PoseWithCovariance
+	#pragma masquerade ros geometry_msgs__Vector3 geometry_msgs/Vector3
+	#pragma masquerade ros struct_msgs__Twist struct_msgs/Twist
+	#pragma masquerade ros geometry_msgs__TwistWithCovariance geometry_msgs/TwistWithCovariance
+	#pragma masquerade ros std_msgs__Header std_msgs/Header
+    #pragma masquerade ros geometry_msgs__Twist geometry_msgs/Twist
+};
+
+#endif

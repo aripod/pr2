@@ -1,0 +1,171 @@
+/base_scan sensor_msgs/LaserScan
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+float32 angle_min
+float32 angle_max
+float32 angle_increment
+float32 time_increment
+float32 scan_time
+float32 range_min
+float32 range_max
+float32[] ranges
+float32[] intensities
+
+
+/cmd_vel geometry_msgs/Twist
+geometry_msgs/Vector3 linear
+  float64 x
+  float64 y
+  float64 z
+geometry_msgs/Vector3 angular
+  float64 x
+  float64 y
+  float64 z
+
+
+/head_controller/joint_trajectory_action/goal control_msgs/JointTrajectoryActionGoal
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+actionlib_msgs/GoalID goal_id
+  time stamp
+  string id
+control_msgs/JointTrajectoryGoal goal
+  trajectory_msgs/JointTrajectory trajectory
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    string[] joint_names
+    trajectory_msgs/JointTrajectoryPoint[] points
+      float64[] positions
+      float64[] velocities
+      float64[] accelerations
+      duration time_from_start
+
+
+/l_arm_controller/joint_trajectory_action/goal control_msgs/JointTrajectoryActionGoal
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+actionlib_msgs/GoalID goal_id
+  time stamp
+  string id
+control_msgs/JointTrajectoryGoal goal
+  trajectory_msgs/JointTrajectory trajectory
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    string[] joint_names
+    trajectory_msgs/JointTrajectoryPoint[] points
+      float64[] positions
+      float64[] velocities
+      float64[] accelerations
+      duration time_from_start
+
+
+
+/r_arm_controller/joint_trajectory_action/goal control_msgs/JointTrajectoryActionGoal
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+actionlib_msgs/GoalID goal_id
+  time stamp
+  string id
+control_msgs/JointTrajectoryGoal goal
+  trajectory_msgs/JointTrajectory trajectory
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    string[] joint_names
+    trajectory_msgs/JointTrajectoryPoint[] points
+      float64[] positions
+      float64[] velocities
+      float64[] accelerations
+      duration time_from_start
+
+
+/torso_lift_controller/joint_trajectory_action/goal control_msgs/JointTrajectoryActionGoal
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+actionlib_msgs/GoalID goal_id
+  time stamp
+  string id
+control_msgs/JointTrajectoryGoal goal
+  trajectory_msgs/JointTrajectory trajectory
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    string[] joint_names
+    trajectory_msgs/JointTrajectoryPoint[] points
+      float64[] positions
+      float64[] velocities
+      float64[] accelerations
+      duration time_from_start
+
+
+/odom nav_msgs/Odometry
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+string child_frame_id
+geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/Pose pose
+    geometry_msgs/Point position
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Quaternion orientation
+      float64 x
+      float64 y
+      float64 z
+      float64 w
+  float64[36] covariance
+geometry_msgs/TwistWithCovariance twist
+  geometry_msgs/Twist twist
+    geometry_msgs/Vector3 linear
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Vector3 angular
+      float64 x
+      float64 y
+      float64 z
+  float64[36] covariance
+
+
+/move_base/goal move_base_msgs/MoveBaseActionGoal
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+actionlib_msgs/GoalID goal_id
+  time stamp
+  string id
+move_base_msgs/MoveBaseGoal goal
+  geometry_msgs/PoseStamped target_pose
+    std_msgs/Header header
+      uint32 seq
+      time stamp
+      string frame_id
+    geometry_msgs/Pose pose
+      geometry_msgs/Point position
+        float64 x
+        float64 y
+        float64 z
+      geometry_msgs/Quaternion orientation
+        float64 x
+        float64 y
+        float64 z
+        float64 w
