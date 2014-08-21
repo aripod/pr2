@@ -1,5 +1,3 @@
-#include "pr2_torso.idl"
-
 component pr2_torso{
 	version		"1.0";
 	lang		"c";
@@ -7,9 +5,7 @@ component pr2_torso{
     
     exception   INVALID_TORSO;
 
-    port out subscriber::torso Port;
-
-    task PublishPort{
+    task move{
         period      50ms;
         priority    200;
         stack       4000;
@@ -17,11 +13,11 @@ component pr2_torso{
         codel <start>   InitModule() yield ether;
     };
 
-    activity Publish(in double torso, in double time_to_finish){
-        codel <start>   mtMove(in torso, in time_to_finish, port out Port) yield ether;
+    activity move_torso(in double torso){
+        codel <start>   mtMove(in torso) yield ether;
 
         validate    controlTorso(in torso);
-        task PublishPort;
+        task move;
         throw   INVALID_TORSO;
     };
 };
