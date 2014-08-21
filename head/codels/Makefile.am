@@ -1,8 +1,8 @@
 lib_LTLIBRARIES = libpr2_head_codels.la
 
 libpr2_head_codels_la_SOURCES=	pr2_head_c_types.h
-libpr2_head_codels_la_SOURCES+=	pr2_head_codels.c
-libpr2_head_codels_la_SOURCES+=	pr2_head_PublishPort_codels.c
+libpr2_head_codels_la_SOURCES+=	pr2_head_codels.cc
+libpr2_head_codels_la_SOURCES+=	pr2_head_move_codels.cc
 
 libpr2_head_codels_la_CPPFLAGS=	$(requires_CFLAGS)
 libpr2_head_codels_la_LDFLAGS=	$(requires_LIBS)
