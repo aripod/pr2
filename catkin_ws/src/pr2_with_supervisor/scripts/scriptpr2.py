@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import roslib; roslib.load_manifest('control_msgs')
+import roslib; #roslib.load_manifest('pr2_with_supervisor')
 import rospy
 
 #Brings in the SimpleActionClient
@@ -8,8 +8,6 @@ import actionlib
 
 from control_msgs.msg import JointTrajectoryAction, JointTrajectoryGoal
 from trajectory_msgs.msg import JointTrajectoryPoint
-from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction, MoveBaseActionResult
-from geometry_msgs.msg import Pose, PoseStamped, Point, Quaternion
 from pr2_head.msg import subscriber_head
 from pr2_l_arm.msg import subscriber_l_arm
 from pr2_r_arm.msg import subscriber_r_arm
@@ -18,7 +16,6 @@ from pr2_gotopos.msg import subscriber_position
 
 
 def callback_head(data):
-    rospy.loginfo("pan=%f tilt=%f time_to_finish=%f",data.pan,data.tilt, data.time_to_finish)
     client = actionlib.SimpleActionClient("/head_controller/joint_trajectory_action", JointTrajectoryAction)
     client.wait_for_server()
 
@@ -73,7 +70,6 @@ def callback_r_arm(data):
     client.wait_for_result()
 
 def callback_torso(data):
-    rospy.loginfo("torso=%f time_to_finish=%f",data.torso, data.time_to_finish)
     client = actionlib.SimpleActionClient("/torso_lift_controller/joint_trajectory_action", JointTrajectoryAction)
     client.wait_for_server()
 
@@ -87,17 +83,6 @@ def callback_torso(data):
     client.send_goal(goal)
     client.wait_for_result()
 
-def callback_gotopos(data):
-    rospy.loginfo("x=%f y=%f w=%f",data.x,data.y,data.w)
-    client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
-    client.wait_for_server()
-    goal = MoveBaseGoal()
-    goal.target_pose.pose.position.x = data.x
-    goal.target_pose.pose.position.y = data.y
-    goal.target_pose.pose.orientation.w = data.w
-    goal.target_pose.header.frame_id = 'map'
-    client.send_goal(goal)
-    client.wait_for_result()
 
 if __name__ == '__main__':
     rospy.init_node('scriptpr2_head', anonymous=True)
@@ -105,6 +90,5 @@ if __name__ == '__main__':
     rospy.Subscriber("pr2_full/Port_l_arm", subscriber_l_arm, callback_l_arm)
     rospy.Subscriber("pr2_full/Port_r_arm", subscriber_r_arm, callback_r_arm)
     rospy.Subscriber("pr2_full/Port_torso", subscriber_torso, callback_torso)
-    rospy.Subscriber("pr2_full/Port_gotoposition", subscriber_position, callback_gotopos)
 
     rospy.spin()

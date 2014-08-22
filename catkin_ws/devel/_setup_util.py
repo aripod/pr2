@@ -252,7 +252,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         # environment at generation time
-        CMAKE_PREFIX_PATH = '/opt/ros/groovy'.split(';')
+        CMAKE_PREFIX_PATH = '/home/ariel/Documents/LAAS/genom3/pr2/catkin_ws/devel;/opt/ros/groovy'.split(';')
         # prepend current workspace if not already part of CPP
         base_path = os.path.dirname(__file__)
         if base_path not in CMAKE_PREFIX_PATH:
