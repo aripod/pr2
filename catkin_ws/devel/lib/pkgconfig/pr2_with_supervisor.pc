@@ -1,8 +1,0 @@
-prefix=/home/ariel/Documents/LAAS/genom3/pr2/catkin_ws/devel
-
-Name: pr2_with_supervisor
-Description: Description of pr2_with_supervisor
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/ariel/Documents/LAAS/genom3/pr2/catkin_ws/devel/lib 
-Requires: 
