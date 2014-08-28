@@ -18,7 +18,6 @@ from pr2_gotopos.msg import subscriber_position
 def callback_head(data):
     client = actionlib.SimpleActionClient("/head_controller/joint_trajectory_action", JointTrajectoryAction)
     client.wait_for_server()
-
     goal = JointTrajectoryGoal()
     goal.trajectory.joint_names.append("head_pan_joint")
     goal.trajectory.joint_names.append("head_tilt_joint")

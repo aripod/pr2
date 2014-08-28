@@ -30,10 +30,10 @@ keyboard = Keyboard()
 james.append(keyboard)
 
 videocamera = VideoCamera()
-videocamera.properties(cam_width=256, cam_height=256)
-videocamera.translate(x=0, y=0, z=5)
+videocamera.properties(cam_width=2, cam_height=2, cam_focal = 25)
+videocamera.translate(x=0, y=0, z=0)
 videocamera.rotate(x=0, y=0, z=0)
-james.append(videocamera)
+james.head.append(videocamera)
 videocamera.add_interface('ros', topic='/video_camera')
 
 # Set the environment

@@ -12,7 +12,6 @@ from pr2_r_arm.msg import subscriber_r_arm
 
 
 def callback(data):
-    #rospy.loginfo("r_shoulder_pan_joint=%f r_shoulder_lift_joint=%f r_shoulder_lift_joint=%f r_shoulder_lift_joint=%f r_shoulder_lift_joint=%f r_shoulder_lift_joint=%f r_shoulder_lift_joint=%f r_shoulder_lift_joint=%f time_to_finish=%f",data.r_shoulder_pan_joint,data.r_shoulder_lift_joint, data.r_upper_arm_roll_joint, data.r_elbow_flex_joint, data.r_forearm_roll_joint, data.r_wrist_flex_joint, data.r_wrist_roll_joint, data.time_to_finish)
     client = actionlib.SimpleActionClient("/r_arm_controller/joint_trajectory_action", JointTrajectoryAction)
     client.wait_for_server()
 
