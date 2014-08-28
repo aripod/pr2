@@ -8,3 +8,7 @@
 *configure
 *configure.ac
 *.pc.in
+catkin_ws/devel/
+catkin_ws/src/CMakeLists.txt
+catkin_ws/src/pr2_twoears/CMakeLists.txt
+catkin_ws/src/pr2_twoears/package.xml
