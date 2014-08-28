@@ -6,14 +6,12 @@ import rospy
 import actionlib
 
 from sensor_msgs.msg import Image
-#from std_msgs.msg import ByteMultiArray
 from std_msgs.msg import String
 
 
 def callback(data):
-    #rospy.loginfo("DATA: %r\n", data.data)
     length = data.height*data.width*4
-    image = [0] * length
+    image = [0] * (length + 2)
     string = list("%s" % data.data)
 
     for i in range(0, length):
@@ -27,8 +25,10 @@ def callback(data):
             aux[1] = current[4]
             current = int(''.join(aux),16)
             image[i] = current
-    #print image   
-    #pub = rospy.Publisher('pr2_videocamera_images', ByteMultiArray)
+    
+    image[length] = data.height
+    image[length+1] = data.width
+    print image
     pub = rospy.Publisher('pr2_videocamera_images', String)
     pub.publish(str(image))
        

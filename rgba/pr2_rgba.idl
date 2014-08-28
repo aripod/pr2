@@ -1,0 +1,10 @@
+#define height 256
+#define width 256
+
+module subscriber
+{
+    struct sensor_msgs
+    {
+        string data;
+    };
+};

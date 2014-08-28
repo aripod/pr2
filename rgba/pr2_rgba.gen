@@ -1,0 +1,22 @@
+#include "pr2_rgba.idl"
+
+component pr2_rgba{
+	version		"1.0";
+	lang		"c";
+	require		"genom3 >= 2.99.24";
+
+    port in subscriber::sensor_msgs Image;
+
+    task ReceiveImage{
+        period      20ms;
+        priority    100;
+        stack       4000;
+
+        codel <start>   InitPublishPort() yield ether;
+    };
+
+    activity Receive(){
+        codel <start>   rReceive(port in Image) yield start;
+        task ReceiveImage;
+    };
+};

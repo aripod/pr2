@@ -10,11 +10,12 @@ component pr2_full{
     port out subscriber::l_arm Port_l_arm;
     port out subscriber::r_arm Port_r_arm;
     port out subscriber::torso Port_torso;
+    port in subscriber::sensor_msgs__Image Image;
 
     exception   INVALID_TORSO;
     
     task PublishPort{
-        period      50ms;
+        period      20ms;
         priority    200;
         stack       4000;
 
@@ -57,5 +58,18 @@ component pr2_full{
         validate    controlTorso(in torso);
         task PublishPort;
         throw   INVALID_TORSO;
+    };
+
+    task VideoCamera_RGBA{
+        period      49ms;
+        priority    200;
+        stack       4000;
+
+        codel <start>   InitModule() yield ether;
+    };
+
+    activity receive_image(){
+        codel <start>   vcRGBAReceive(port in Image) yield start;
+        task VideoCamera_RGBA;
     };
 };

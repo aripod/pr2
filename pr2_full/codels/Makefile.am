@@ -3,6 +3,7 @@ lib_LTLIBRARIES = libpr2_full_codels.la
 libpr2_full_codels_la_SOURCES=	pr2_full_c_types.h
 libpr2_full_codels_la_SOURCES+=	pr2_full_codels.c
 libpr2_full_codels_la_SOURCES+=	pr2_full_PublishPort_codels.c
+libpr2_full_codels_la_SOURCES+=	pr2_full_VideoCamera_RGBA_codels.c
 
 libpr2_full_codels_la_CPPFLAGS=	$(requires_CFLAGS)
 libpr2_full_codels_la_LDFLAGS=	$(requires_LIBS)
