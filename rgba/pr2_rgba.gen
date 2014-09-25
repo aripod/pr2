@@ -5,7 +5,7 @@ component pr2_rgba{
 	lang		"c";
 	require		"genom3 >= 2.99.24";
 
-    port in subscriber::sensor_msgs Image;
+    port in subscriber::sensor_msgs__Image Image;
 
     task ReceiveImage{
         period      20ms;
@@ -20,3 +20,9 @@ component pr2_rgba{
         task ReceiveImage;
     };
 };
+
+/*
+How to launch the module: pr2_rgba-ros /pr2_rgba/Image:=/video_camera/image &
+
+How to connect the port: ::pr2_rgba::connect_port Image /video_camera/image
+*/

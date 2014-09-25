@@ -1,10 +1,28 @@
-#define height 256
-#define width 256
-
 module subscriber
 {
-    struct sensor_msgs
+    struct msgs_time
     {
-        string data;
+        unsigned long secs; /*int32_t*/
+        unsigned long nsecs;
     };
+
+    struct std_msgs__Header
+    {
+        unsigned long seq; /*uint32_t*/
+        msgs_time stamp;
+        string frame_id;
+    };
+
+    struct sensor_msgs__Image
+    {
+        std_msgs__Header header;
+        unsigned long height;
+        unsigned long width;
+        string encoding;
+        octet is_bigendian;
+        unsigned long step;
+        sequence<octet> data;
+    };
+
+    #pragma masquerade ros sensor_msgs__Image sensor_msgs/Image
 };

@@ -35,10 +35,17 @@ rReceive(const pr2_rgba_Image *Image, genom_context self)
     Image->read(self);
     if(Image->data(self)!=NULL)
     {
-        len = strlen(Image->data(self)->data);
-        for(i=0; i<len; i++)    
-            printf("%c", Image->data(self)->data[i]);
-        printf("\n");
+        printf("Timestamp:\n\tsecs: %d\n\tnsecs: %d\n", Image->data(self)->header.stamp.secs, Image->data(self)->header.stamp.nsecs);
+        printf("Height: %d\nWidth: %d\nData: ", Image->data(self)->height,Image->data(self)->width);
+        printf("Encoding: %s\n", Image->data(self)->encoding);
+        printf("Is bigendian: %d\n", Image->data(self)->is_bigendian);
+        printf("Step: %d\n", Image->data(self)->step);
+        printf("Data: [ ");
+        for(i=0; i<Image->data(self)->data._length;i++)
+        {
+            printf("%d, ", *(Image->data(self)->data._buffer+i));
+        }
+        printf("]\n\n");
     }
     else    
         printf("No data available.\n");
